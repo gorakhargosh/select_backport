@@ -1,10 +1,9 @@
-The select26 module is a backport of my patch for Python 2.6 to Python 2.4
-and 2.5. It contains an interface to Linux's epoll() and BSD's kqueue
-system calls.
+The select_backport module is a backport of Christian Heimes' patch for
+Python 2.6 to Python 2.4 and 2.5. It contains an interface to Linux's epoll()
+and BSD's kqueue system calls. It is also kept up-to-date with Python svn.
 
 >>> try:
-...     import select26 as select
+...     import select_backport as select
 ... except ImportError:
 ...     import select
 >>> ep = select.epoll()
-

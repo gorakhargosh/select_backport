@@ -1,6 +1,6 @@
-/* select26 
+/* select26
  *
- * Drop in replacement for select module with the new API 
+ * Drop in replacement for select module with the new API
  * functions from Python 2.6
  */
 
@@ -118,7 +118,7 @@ static PyObject *
 newPyEpoll_Object(PyTypeObject *type, int sizehint, SOCKET fd)
 {
 	pyEpoll_Object *self;
-	
+
 	if (sizehint == -1) {
 		sizehint = FD_SETSIZE-1;
 	}
@@ -606,7 +606,7 @@ kqueue_event_init(kqueue_event_Object *self, PyObject *args, PyObject *kwds)
 				 "data", "udata", NULL};
 
 	EV_SET(&(self->e), 0, EVFILT_READ, EV_ADD, 0, 0, 0); /* defaults */
-	
+
 	if (!PyArg_ParseTupleAndKeywords(args, kwds, "O|hhiii:kevent", kwlist,
 		&pfd, &(self->e.filter), &(self->e.flags),
 		&(self->e.fflags), &(self->e.data), &(self->e.udata))) {
@@ -743,7 +743,7 @@ newKqueue_Object(PyTypeObject *type, SOCKET fd)
 	if (self == NULL) {
 		return NULL;
 	}
-	
+
 	if (fd == -1) {
 		Py_BEGIN_ALLOW_THREADS
 		self->kqfd = kqueue();
@@ -1092,7 +1092,7 @@ initselect26(void)
 	if (o == NULL)
 		return;
 	PyModule_AddObject(m, "error", o);
-	
+
 	o = PyObject_GetAttrString(s, "select");
 	if (o == NULL)
 		return;
@@ -1170,7 +1170,7 @@ initselect26(void)
 		return;
 	Py_INCREF(&kqueue_queue_Type);
 	PyModule_AddObject(m, "kqueue", (PyObject *)&kqueue_queue_Type);
-	
+
 	/* event filters */
 	PyModule_AddIntConstant(m, "KQ_FILTER_READ", EVFILT_READ);
 	PyModule_AddIntConstant(m, "KQ_FILTER_WRITE", EVFILT_WRITE);
@@ -1199,7 +1199,7 @@ initselect26(void)
 
 	/* READ WRITE filter flag */
 	PyModule_AddIntConstant(m, "KQ_NOTE_LOWAT", NOTE_LOWAT);
-	
+
 	/* VNODE filter flags  */
 	PyModule_AddIntConstant(m, "KQ_NOTE_DELETE", NOTE_DELETE);
 	PyModule_AddIntConstant(m, "KQ_NOTE_WRITE", NOTE_WRITE);
