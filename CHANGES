@@ -1,0 +1,14 @@
+0.1a3
+-----
+
+ * New release based on Python trunk r62498 
+
+0.1a2
+-----
+
+ * Removed dependency on setuptools as requested by therve.
+
+0.1a1
+-----
+
+ * initial release

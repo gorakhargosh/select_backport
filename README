@@ -1,0 +1,10 @@
+The select26 module is a backport of my patch for Python 2.6 to Python 2.4
+and 2.5. It contains an interface to Linux's epoll() and BSD's kqueue
+system calls.
+
+>>> try:
+...     import select26 as select
+... except ImportError:
+...     import select
+>>> ep = select.epoll()
+
