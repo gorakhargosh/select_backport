@@ -1,12 +1,12 @@
 #!/usr/bin/env python2.5
 """Backport of the new select module with epoll and kqueue interface
 
-The select26 extension is a backport of the new API functions of Python
+The select_backport extension is a backport of the new API functions of Python
 2.6 for Python 2.3 to 2.5. It contains object oriented wrappers for epoll
 (Linux 2.6) and kqueue/kevent (BSD).
 
 >>> try:
-...     import select26 as select
+...     import select_backport as select
 ... except ImportError:
 ...     import select
 
@@ -37,16 +37,16 @@ else:
     raise ValueError("Platform '%s' is not supported" % sys.platform)
 
 if sys.version_info >= (2,6):
-    raise ValueError("select26 is not required in Python 2.6+")
+    raise ValueError("select_backport is not required in Python 2.6+")
 
 extensions = [
-    Extension("select26", ["select26module.c"],
+    Extension("select_backport", ["select_backportmodule.c"],
         define_macros = MACROS,
         )
     ]
 
 setup(
-    name = "select26",
+    name = "select_backport",
     version = "0.1a3",
     description = __doc__[:__doc__.find('\n')].strip(),
     long_description = '\n'.join([line
@@ -60,7 +60,7 @@ setup(
     packages = ["tests"],
     include_package_data = True,
     platforms = ["Linux 2.6", "BSD", "Mac OS X"],
-    provides = ["select26"],
+    provides = ["select_backport"],
     classifiers = (
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
