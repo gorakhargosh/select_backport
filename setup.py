@@ -36,8 +36,9 @@ elif "darwin" in sys.platform or "bsd" in sys.platform:
 else:
     raise ValueError("Platform '%s' is not supported" % sys.platform)
 
-if sys.version_info >= (2,6):
-    raise ValueError("select_backport is not required in Python 2.6+")
+#Python2.6 select doesn't work for our purposes.
+#if sys.version_info >= (2,6):
+#    raise ValueError("select_backport is not required in Python 2.6+")
 
 extensions = [
     Extension("select_backport", ["select_backportmodule.c"],
