@@ -48,7 +48,7 @@ extensions = [
 
 setup(
     name = "select_backport",
-    version = "0.1a3",
+    version = "0.2",
     description = __doc__[:__doc__.find('\n')].strip(),
     long_description = '\n'.join([line
                                   for line in __doc__.split('\n')[1:]]),
