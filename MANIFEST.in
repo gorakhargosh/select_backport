@@ -3,3 +3,5 @@ include CHANGES
 include LICENSE
 include Makefile
 include runtests.py
+include select_backportmodule.h
+
