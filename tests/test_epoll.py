@@ -25,7 +25,7 @@ import os
 import socket
 import errno
 import time
-import select26 as select
+import select_backport as select
 import tempfile
 import unittest
 from test import test_support
@@ -194,7 +194,7 @@ def test_suite():
     if hasattr(select, "epoll"):
         suite.addTest(unittest.makeSuite(TestEPoll))
     else:
-        print "No select26.epoll"
+        print "No select_backport.epoll"
     return suite
 
 if __name__ == "__main__":
