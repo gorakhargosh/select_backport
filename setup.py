@@ -2,7 +2,7 @@
 """Backport of the new select module with epoll and kqueue interface
 
 The select_backport extension is a backport of the new API functions of Python
-2.6 for Python 2.3 to 2.5. It contains object oriented wrappers for epoll
+2.7/SVN for Python 2.3 to 2.6. It contains object oriented wrappers for epoll
 (Linux 2.6) and kqueue/kevent (BSD).
 
 >>> try:
@@ -13,7 +13,10 @@ The select_backport extension is a backport of the new API functions of Python
 >>> ep = select.epoll()
 >>> kq = select.kqueue()
 
-This release is based upon Python svn trunk r62498.
+This release is based upon Python svn.
+
+NOTE: I made this package because python2.5 and python2.6 lacked features
+I'm using from select.kqueue and the select26 package isn't being maintained.
 """
 
 import sys
