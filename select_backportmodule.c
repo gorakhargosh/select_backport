@@ -7,6 +7,7 @@
 */
 
 #include "Python.h"
+#include "select_backportmodule.h"
 #include <structmember.h>
 
 #ifdef __APPLE__
@@ -632,7 +633,7 @@ static PyTypeObject poll_Type = {
     /* The ob_type field must be initialized in the module init function
      * to be portable to Windows without using C++. */
     PyVarObject_HEAD_INIT(NULL, 0)
-    "select.poll",              /*tp_name*/
+    "select_backport.poll",              /*tp_name*/
     sizeof(pollObject),         /*tp_basicsize*/
     0,                          /*tp_itemsize*/
     /* methods */
@@ -1067,7 +1068,7 @@ static PyGetSetDef pyepoll_getsetlist[] = {
 };
 
 PyDoc_STRVAR(pyepoll_doc,
-"select.epoll([sizehint=-1])\n\
+"select_backport.epoll([sizehint=-1])\n\
 \n\
 Returns an epolling object\n\
 \n\
@@ -1077,7 +1078,7 @@ the maximum number of monitored events.");
 
 static PyTypeObject pyEpoll_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
-    "select.epoll",                                     /* tp_name */
+    "select_backport.epoll",                                     /* tp_name */
     sizeof(pyEpoll_Object),                             /* tp_basicsize */
     0,                                                  /* tp_itemsize */
     (destructor)pyepoll_dealloc,                        /* tp_dealloc */
@@ -1234,7 +1235,7 @@ kqueue_event_repr(kqueue_event_Object *s)
     char buf[1024];
     PyOS_snprintf(
         buf, sizeof(buf),
-        "<select.kevent ident=%zu filter=%d flags=0x%x fflags=0x%x "
+        "<select_backport.kevent ident=%zu filter=%d flags=0x%x fflags=0x%x "
         "data=0x%zd udata=%p>",
         (size_t)(s->e.ident), s->e.filter, s->e.flags,
         s->e.fflags, (Py_ssize_t)(s->e.data), s->e.udata);
@@ -1321,7 +1322,7 @@ kqueue_event_richcompare(kqueue_event_Object *s, kqueue_event_Object *o,
 
 static PyTypeObject kqueue_event_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
-    "select.kevent",                                    /* tp_name */
+    "select_backport.kevent",                                    /* tp_name */
     sizeof(kqueue_event_Object),                        /* tp_basicsize */
     0,                                                  /* tp_itemsize */
     0,                                                  /* tp_dealloc */
@@ -1416,7 +1417,7 @@ kqueue_queue_new(PyTypeObject *type, PyObject *args, PyObject *kwds)
     if ((args != NULL && PyObject_Size(args)) ||
                     (kwds != NULL && PyObject_Size(kwds))) {
         PyErr_SetString(PyExc_ValueError,
-                        "select.kqueue doesn't accept arguments");
+                        "select_backport.kqueue doesn't accept arguments");
         return NULL;
     }
 
@@ -1572,7 +1573,7 @@ kqueue_queue_control(kqueue_queue_Object *self, PyObject *args)
                 Py_DECREF(ei);
                 PyErr_SetString(PyExc_TypeError,
                     "changelist must be an iterable of "
-                    "select.kevent objects");
+                    "select_backport.kevent objects");
                 goto error;
             } else {
                 chl[i++] = ((kqueue_event_Object *)ei)->e;
@@ -1675,7 +1676,7 @@ To stop listening:\n\
 
 static PyTypeObject kqueue_queue_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
-    "select.kqueue",                                    /* tp_name */
+    "select_backport.kqueue",                                    /* tp_name */
     sizeof(kqueue_queue_Object),                        /* tp_basicsize */
     0,                                                  /* tp_itemsize */
     (destructor)kqueue_queue_dealloc,                   /* tp_dealloc */
@@ -1742,7 +1743,7 @@ that are ready.\n\
 On Windows and OpenVMS, only sockets are supported; on Unix, all file\n\
 descriptors can be used.");
 
-static PyMethodDef select_methods[] = {
+static PyMethodDef select_backport_methods[] = {
     {"select",          select_select,  METH_VARARGS,   select_doc},
 #ifdef HAVE_POLL
     {"poll",            select_poll,    METH_NOARGS,    poll_doc},
@@ -1757,14 +1758,14 @@ PyDoc_STRVAR(module_doc,
 On Windows and OpenVMS, only sockets are supported; on Unix, all file descriptors.");
 
 PyMODINIT_FUNC
-initselect(void)
+initselect_backport(void)
 {
     PyObject *m;
-    m = Py_InitModule3("select", select_methods, module_doc);
+    m = Py_InitModule3("select_backport", select_backport_methods, module_doc);
     if (m == NULL)
         return;
 
-    SelectError = PyErr_NewException("select.error", NULL, NULL);
+    SelectError = PyErr_NewException("select_backport.error", NULL, NULL);
     Py_INCREF(SelectError);
     PyModule_AddObject(m, "error", SelectError);
 
