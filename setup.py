@@ -54,6 +54,8 @@ setup(
                                   for line in __doc__.split('\n')[1:]]),
     author = "Christian Heimes",
     author_email = "christian@cheimes.de",
+    maintainer = "Gora Khargosh",
+    maintainer_email = "gora.khargosh@gmail.com",
     download_url = "http://pypi.python.org/",
     license = "MIT",
     keywords = "select poll epoll kqueue",
